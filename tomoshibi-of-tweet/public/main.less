@@ -1,0 +1,129 @@
+
+// --- 変数定義 --- //
+@land-color: #111;
+@ocean-color: #050517;
+
+@border-color: #888;
+@border-opacity: 0.4;
+
+
+// --- mixin 定義 --- //
+.absolute() {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+// --- 各スタイルの定義  --- //
+body {
+    background-color: @ocean-color;
+    color: #999;
+    font-family: monospace;
+}
+
+#content {
+    position: relative;
+    margin: 0 auto;
+    visibility: hidden;
+}
+
+#view-svg {
+    .absolute;
+
+    z-index: 1;
+
+    path.land {
+        fill: fadeout(@land-color, 100%);
+
+        &.selected {
+            stroke: @border-color;
+            stroke-opacity: 1;
+            stroke-width: 2;
+            fill: #222;
+            filter: url(#selectFilter);
+        }
+    }
+
+    path.land-all {
+        fill: @land-color;
+        filter: url(#landFilter);
+    }
+}
+
+#capture-svg {
+    .absolute;
+
+    z-index: 3;
+
+    path {
+        fill-opacity: 0;
+        stroke-opacity: 0;
+    }
+}
+
+
+#tomoshibi-canvas {
+    .absolute;
+
+    z-index: 2;
+}
+
+
+#selectedAreaInfo {
+    .absolute;
+
+    width: 50%;
+    height: 40%;
+
+    div#selectedTweetCount {
+        position: relative;
+        font-size: 40px;
+    }
+
+    div#lastTweet {
+        border-radius: 5px;
+        background: fadeout(#888, 60%);
+
+        padding: 5px 15px;
+    }
+
+
+    div.areaName {
+        float: left;
+        width: 60%;
+        overflow: hidden;
+    }
+
+    div.tweetCount {
+        text-align: right;
+    }
+
+    div.label {
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
+    div.tweetText {
+        font-family: monospace;
+        font-size: 15px;
+    }
+
+    div.tweetUser {
+        text-align: right;
+    }
+}
+
+#appInfo {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    width: 30%;
+    height: 40%;
+
+    a {
+        color: #FFF;
+    }
+
+    z-index: 5;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet/less" type="text/css" href="/main.less" />
+        <title>Tweet の灯</title>
+
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="/js/less-1.3.3.js"></script>
+
+        <script src="/hifive/h5-1.1.4.dev.js"></script>
+
+        <script src="http://d3js.org/d3.v3.js"></script>
+        <script src="http://d3js.org/topojson.v0.js"></script>
+        <script src="http://code.createjs.com/easeljs-0.6.0.min.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script src="/main.js"></script>
+    </head>
+    <body>
+        <div id="content">
+            <svg id="view-svg">
+                <defs>
+                    <!-- 海岸線を光らせるフィルタ -->
+                    <filter id="landFilter">
+                        <feColorMatrix in="SourceAlpha" result="colorOut" type="matrix"
+                            values="0   0   0   0   1
+                                    0   0   0   0   1
+                                    0   0   0   0   1
+                                    0   0   0 0.2   0" />
+                        <feGaussianBlur in="colorOut" result="blurOut" stdDeviation="3" />
+                        <feBlend in="SourceGraphic" in2="blurOut" />
+                    </filter>
+
+                    <!-- 選択中の県を光らせるフィルタ -->
+                    <filter id="selectFilter">
+                        <feColorMatrix in="SourceAlpha" result="colorOut" type="matrix"
+                            values="0   0   0   0   1
+                                    0   0   0   0   1
+                                    0   0   0   0 0.7
+                                    0   0   0 0.6   0" />
+                        <feGaussianBlur in="colorOut" result="blurOut" stdDeviation="4" />
+                        <feBlend in="SourceGraphic" in2="blurOut" />
+                    </filter>
+                </defs>
+            </svg>
+            <canvas id="tomoshibi-canvas"></canvas>
+
+            <!-- マウスの動きのキャプチャするための svg -->
+            <svg id="capture-svg"></svg>
+
+            <div id="selectedAreaInfo">
+                <div id="selectedTweetCount">
+                    <div class="areaName" data-h5-bind="name">japan</div>
+                    <div class="tweetCount" data-h5-bind="tweetCount">0</div>
+                </div>
+                <div class="label">Last Tweet</div>
+                <div id="lastTweet">
+                    <div class="tweetText" data-h5-bind="lastTweetText">
+                        最後のツイートがここに表示されます
+                    </div>
+                    <div class="tweetUser">
+                        @<span data-h5-bind="lastTweetUser">3bch</span>
+                    </div>
+                </div>
+            </div>
+            <div id="appInfo">
+                以下の技術を利用しています
+                <ul>
+                    <li>
+                        <a href="http://www.htmlhifive.com/conts/web/view/Main/WebHome">hifive</a>
+                    </li>
+                    <li>
+                        <a href="http://d3js.org/">D3.js</a>
+                    </li>
+                    <li>
+                        <a href="http://www.createjs.com/#!/CreateJS">CreateJS</a>
+                    </li>
+                    <li>
+                        <a href="http://nodejs.org/">Node.js</a>
+                    </li>
+                    <li>
+                        <a href="http://socket.io/">Socket.IO</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
