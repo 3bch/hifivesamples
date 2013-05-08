@@ -268,11 +268,8 @@ $(function () {
 
                 // svg 要素は jQuery の addClass が使えない
                 $view.each(function (index, elem) {
-                    if ($(elem).data('code') === code) {
-                        elem.classList.add('selected');
-                    } else {
-                        elem.classList.remove('selected');
-                    }
+                    var selected = $(elem).data('code') === code;
+                    d3.select(elem).classed('selected', selected);
                 });
 
                 var prefecture = this._models.getPrefecture(code);
@@ -283,7 +280,7 @@ $(function () {
                 // svg 要素は jQuery の removeClass が使えない
                 $(this._viewSvg).children('path')
                                 .each(function (index, elem) {
-                                    elem.classList.remove('selected');
+                                    d3.select(elem).classed('selected', false);
                                 });
 
                 var japan = this._models.getJapan();
