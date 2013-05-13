@@ -186,6 +186,7 @@ $(function () {
 
                 this._selectJapan();
                 $(this.rootElement).css('visibility', 'visible');
+                $('#refInfo').css('visibility', 'visible');
             },
 
             _resize: function () {
