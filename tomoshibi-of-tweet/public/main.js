@@ -191,7 +191,8 @@ $(function () {
             _resize: function () {
                 var $window = $(window);
                 var width = $window.width();
-                var height = $window.height();
+                // 地図とAPIの利用元の表示で 50px 使う
+                var height = $window.height() - 50;
 
                 var size = this._size = (width < height) ? width : height;
 
